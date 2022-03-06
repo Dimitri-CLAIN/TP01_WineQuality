@@ -23,13 +23,13 @@ namespace TP01_WineQuality
                 var values = line.Split(';');
 
                 // Console.WriteLine(values[0].GetType());
-                // Console.WriteLine(line);
+                Console.WriteLine(line);
                 // alcohol.Add(values[0]);
                 // sulphates.Add(values[1]);
                 // acidCitric.Add(values[2]);
                 // volatileAcididy.Add(values[3]);
                 // quality.Add(values[4]);
-/*
+                /*
                 foreach (var col in alcohol) {
                     Console.WriteLine("alc {0}",  col);
                 }
