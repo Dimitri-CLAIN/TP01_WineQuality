@@ -15,7 +15,10 @@ namespace TP01_WineQuality
         float EuclideanDistance(IWine first_sample, IWine second_sample);
         int Vote(List<int> sorted_labels);
         void ConfusionMatrix(List<int> predicted_labels, List<int> expert_labels);
-        List<int> ShellSort(List<float> distances, List<int> labels);
-        List<int> SelectionSort(List<float> distances, List<int> labels);
+        void ShellSort(List<float> distances, List<int> labels);
+        void SelectionSort(List<float> distances, List<int> labels);
+
+        //Wine ImportOneSample(string filename_sample_csv);
+        //List<Wine> ImportAllSamples(string filename_samples_csv);
     }
 }
