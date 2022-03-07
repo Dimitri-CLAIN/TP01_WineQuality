@@ -25,9 +25,23 @@ namespace TP01_WineQuality
         int Vote(List<int> sorted_labels) {
             return 0;
         }
+
+        int isInArray(int target, int predicted, List<int> array)
+        {
+            int res = 0;
+
+            foreach (var item in array) {
+                if (item == target && item == predicted)
+                    res++;
+            }
+            return res;
+        }
         public void ConfusionMatrix(List<int> predicted_labels, List<int> expert_labels)
         {
             Console.WriteLine("/t|/t3/t|/t6/t|/t9/t");
+            for (int i = 3; i < 9; i += 3) {
+                Console.WriteLine($"{i}/t|/t{isInArray(i, 3, predicted_labels)}/t|/t{isInArray(i, 6, predicted_labels)}/t|/t{isInArray(i, 9, predicted_labels)}/t");
+            }
         }
         public void ShellSort(List<float> distances, List<int> labels)
         {
