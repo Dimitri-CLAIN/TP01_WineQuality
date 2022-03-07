@@ -15,8 +15,8 @@ namespace TP01_WineQuality
                 int i = 0;
                 int algo = 1;
                 int kValue = 1;
-                bool t = false;
-                bool s = false;
+                bool tes = false;
+                bool samp = false;
                 String train = null;
                 String test = null;
                 String sample = null;
@@ -26,12 +26,12 @@ namespace TP01_WineQuality
                         case "-e":
                             i += 1;
                             test = args[i];
-                            t = true;
+                            tes = true;
                             break;
                         case "-p":
                             i += 1;
                             sample = args[i];
-                            s = true;
+                            samp = true;
                             break;
                         case "-t":
                             i +=1;
@@ -51,9 +51,11 @@ namespace TP01_WineQuality
                     }
                 }
                 knn.Train(train, kValue, algo);
-                if (t == true) {
+                if (tes == true) {
+                    Console.WriteLine("test");
                     res = knn.Evaluate(test).ToString();
-                } else if (s == true) {
+                } else if (samp == true) {
+                    Console.WriteLine("sample");
                     res = knn.Predict(sample).ToString();
                 } else {
                     throw new Exception("Argument error");

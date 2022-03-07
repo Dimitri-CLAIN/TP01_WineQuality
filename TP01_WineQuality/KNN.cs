@@ -9,7 +9,9 @@ namespace TP01_WineQuality
 {
     internal class KNN
     {
-        public List<Wine> TrainList = new List<Wine>();
+        List<Wine> TrainList = new List<Wine>();
+        int k = 1;
+        int sort_algorithm = 1;
         static List<String> LectCSV(string filename)
         {
             List<string> lines = new List<string>();
@@ -37,35 +39,37 @@ namespace TP01_WineQuality
             wine = new Wine(feature, values[i]);
             return wine;
         }
-        public void Train(string filename_train_set_csv, int k = 1, int sort_algorithm = 1) {
-            List<string> files = LectCSV(filename_train_set_csv);
+
+        Wine ImportOneSample(string filename_sample_csv) {
+            List<string> files = LectCSV(filename_sample_csv);
+            Wine res = LectWine(files[1]);
+            return res;
+        }
+        List<Wine> ImportAllSamples(string filename_samples_csv) {
+            List<string> files = LectCSV(filename_samples_csv);
+            List<Wine> list = new List<Wine>();
             foreach (var line in files.Skip(1)) {
                 Wine tmp = LectWine(line);
-                this.TrainList.Add(tmp);
+                list.Add(tmp);
             }
-            
+            return list;
+        }
 
-
-            // pas sur de ca
-            if (sort_algorithm == 1) {
-                //ShellSort
-            } else if (sort_algorithm == 2) {
-                //SelectionSort
-            } else {
-                throw new Exception("Sort algorithm error");
-            }
-
+        public void Train(string filename_train_set_csv, int k = 1, int sort_algorithm = 1) {
+            this.TrainList = ImportAllSamples(filename_train_set_csv);
+            if (k > 0)
+                this.k = k;
+            else 
+                throw new Exception("incorrect value for k");
+            if (sort_algorithm == 1 || sort_algorithm == 2)
+                this.sort_algorithm = sort_algorithm;
+            else
+                throw new Exception("incorrect value for sort_algorithm");
         }
 
         public float Evaluate(string filename_test_set_csv) {
             float res = 0;
-            List<Wine> testList = new List<Wine>();
-            List<string> files = LectCSV(filename_test_set_csv);
-
-            foreach (var line in files.Skip(1)) {
-                Wine tmp = LectWine(line);
-                testList.Add(tmp);
-            }
+            List<Wine> testList = ImportAllSamples(filename_test_set_csv);
 
             // add
 
@@ -74,23 +78,42 @@ namespace TP01_WineQuality
 
         public int Predict(string filename_sample_csv) {
             int res = 0;
-            List<string> files = LectCSV(filename_sample_csv);
-            Wine sample = LectWine(files[1]);
-            //sample.PrintInfo();
-
-            // add
+            Wine sample = ImportOneSample(filename_sample_csv);
+            List<float> distances = new List<float>();
+            List<int> expert_label = new List<int>();
+            
+            foreach(Wine wine in this.TrainList) {
+                distances.Add(EuclideanDistance(sample, wine));
+                expert_label.Add(wine.Label);
+            }
+            foreach(var dis in distances) {
+                Console.WriteLine("0 : {0}", dis);
+            }
+            Console.WriteLine("bittttte");
+            if (this.sort_algorithm == 1) {
+                Console.WriteLine("here");
+                ShellSort(distances, expert_label);
+            } else if (this.sort_algorithm == 2) {
+                SelectionSort(distances, expert_label);
+            } else {
+                throw new Exception("error valie of sort algorithm");
+            }
+            foreach(var dis in distances) {
+                Console.WriteLine("2 : {0}", dis);
+            }
 
             return res;
         }
         float EuclideanDistance(Wine first_sample, Wine second_sample) {
-            float res = 0;
+            double res = 0;
             int i = 0;
             while(i <= 3) {
-                float value = (float)Math.Pow((first_sample.Features[i] - second_sample.Features[i]), 2);
+                double value = Math.Pow((first_sample.Features[i] - second_sample.Features[i]), 2);
                 res += value;
+                i++;
             }
-            res = (float)Math.Sqrt(res);
-            return res;
+            res = Math.Sqrt(res);
+            return float.Parse(res.ToString());
         }
         int Vote(List<int> sorted_labels) {
             return 0;
@@ -130,6 +153,9 @@ namespace TP01_WineQuality
                     distances[j] = tmpDistance;
                     labels[j] = tmpLabel;
                 }
+            }
+            foreach(var dis in distances) {
+                Console.WriteLine("1 : {0}", dis);
             }
         }
         public void SelectionSort(List<float> distances, List<int> labels)

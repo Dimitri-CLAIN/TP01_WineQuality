@@ -18,7 +18,7 @@ namespace TP01_WineQuality
         void ShellSort(List<float> distances, List<int> labels);
         void SelectionSort(List<float> distances, List<int> labels);
 
-        //Wine ImportOneSample(string filename_sample_csv);
-        //List<Wine> ImportAllSamples(string filename_samples_csv);
+        Wine ImportOneSample(string filename_sample_csv);
+        List<Wine> ImportAllSamples(string filename_samples_csv);
     }
 }
