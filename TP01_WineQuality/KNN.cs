@@ -12,6 +12,7 @@ namespace TP01_WineQuality
         List<Wine> TrainList = new List<Wine>();
         int k = 1;
         int sort_algorithm = 1;
+
         static List<String> LectCSV(string filename)
         {
             List<string> lines = new List<string>();
@@ -59,7 +60,7 @@ namespace TP01_WineQuality
             this.TrainList = ImportAllSamples(filename_train_set_csv);
             if (k > 0)
                 this.k = k;
-            else 
+            else
                 throw new Exception("incorrect value for k");
             if (sort_algorithm == 1 || sort_algorithm == 2)
                 this.sort_algorithm = sort_algorithm;
@@ -81,17 +82,12 @@ namespace TP01_WineQuality
             Wine sample = ImportOneSample(filename_sample_csv);
             List<float> distances = new List<float>();
             List<int> expert_label = new List<int>();
-            
+
             foreach(Wine wine in this.TrainList) {
                 distances.Add(EuclideanDistance(sample, wine));
                 expert_label.Add(wine.Label);
             }
-            foreach(var dis in distances) {
-                Console.WriteLine("0 : {0}", dis);
-            }
-            Console.WriteLine("bittttte");
             if (this.sort_algorithm == 1) {
-                Console.WriteLine("here");
                 ShellSort(distances, expert_label);
             } else if (this.sort_algorithm == 2) {
                 SelectionSort(distances, expert_label);
@@ -158,8 +154,10 @@ namespace TP01_WineQuality
         public void ShellSort(List<float> distances, List<int> labels)
         {
             int distancesLen = distances.Count();
+            // Console.WriteLine(distancesLen);
 
-            for (int gap = distancesLen / 2; gap < 0; gap = gap / 2) {
+            for (int gap = distancesLen / 2; gap > 0; gap = gap / 2) {
+                // Console.WriteLine($"- {gap} -");
                 for (int n = gap; n < distancesLen; n++) {
                     int j;
                     float tmpDistance = distances[n];
@@ -171,10 +169,8 @@ namespace TP01_WineQuality
                     }
                     distances[j] = tmpDistance;
                     labels[j] = tmpLabel;
+                    // Console.WriteLine($"- {distances[j]} - {labels[j]} -");
                 }
-            }
-            foreach(var dis in distances) {
-                Console.WriteLine("1 : {0}", dis);
             }
         }
         public void SelectionSort(List<float> distances, List<int> labels)

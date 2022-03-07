@@ -52,10 +52,8 @@ namespace TP01_WineQuality
                 }
                 knn.Train(train, kValue, algo);
                 if (tes == true) {
-                    Console.WriteLine("test");
                     res = knn.Evaluate(test).ToString();
                 } else if (samp == true) {
-                    Console.WriteLine("sample");
                     res = knn.Predict(sample).ToString();
                 } else {
                     throw new Exception("Argument error");
