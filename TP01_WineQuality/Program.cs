@@ -29,15 +29,46 @@ namespace TP01_WineQuality
             try {
                 List<string> files = new List<string>();
                 List<string> trainFiles = new List<string>();
+                Wine sample;
                 int kValue = 0;
+                int i = 0;
                 string algo = null;
 
-                //  ADD aleatoire argument with the differents flags
-
-                files = LectCSV(args[1]);
-                trainFiles = LectCSV(args[3]);
-                kValue = Int32.Parse(args[5]);
-                algo = args[7];
+                foreach (var arg in args) {
+                    switch(arg) {
+                        case "-e":
+                            i += 1;
+                            files = LectCSV(args[i]);
+                            break;
+                        case "-p":
+                            i +=1;
+                            List<string> feature = new List<string>();
+                            int j = 0;
+                            files = LectCSV(args[i]);
+                            var values = files[1].Split(";");
+                            for(; j <= 3; j++) {
+                                feature.Add(values[j]);
+                            }
+                            sample = new Wine(feature, values[j]);
+                            // sample.PrintInfo();
+                            break;
+                        case "-t":
+                            i +=1;
+                            trainFiles = LectCSV(args[i]);
+                            break;
+                        case "-k":
+                            i +=1;
+                            kValue = Int32.Parse(args[i]);
+                            break;
+                        case "-s":
+                            i +=1;
+                            algo = args[i];
+                            break;
+                        default:
+                            i +=1;
+                            break;
+                    }
+                }
 
                 //
                 //  ADD reste des appels de fonction
