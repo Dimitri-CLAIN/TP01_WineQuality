@@ -9,52 +9,45 @@ namespace TP01_WineQuality
     internal class Program
     {
 
-        static void LectCSV(string filename)
+        static List<String> LectCSV(string filename)
         {
-            var reader = new StreamReader(File.OpenRead(filename));
-            List<string> alcohol = new List<string>();
-            List<string> sulphates = new List<string>();
-            List<string> acidCitric = new List<string>();
-            List<string> volatileAcididy = new List<string>();
-            List<string> quality = new List<string>();
-            while (!reader.EndOfStream)
+            List<string> lines = new List<string>();
+            string line = null;
+            
+            using (StreamReader reader = new StreamReader(File.OpenRead(filename)))
             {
-                var line = reader.ReadLine();
-                var values = line.Split(';');
-
-                // Console.WriteLine(values[0].GetType());
-                Console.WriteLine(line);
-                // alcohol.Add(values[0]);
-                // sulphates.Add(values[1]);
-                // acidCitric.Add(values[2]);
-                // volatileAcididy.Add(values[3]);
-                // quality.Add(values[4]);
-                /*
-                foreach (var col in alcohol) {
-                    Console.WriteLine("alc {0}",  col);
+                while (!reader.EndOfStream) {
+                    line = reader.ReadLine();
+                    lines.Add(line);
                 }
-                foreach (var col in sulphates) {
-                    Console.WriteLine("sul {0}",col);
-                }
-                foreach (var col in acidCitric) {
-                    Console.WriteLine("aci {0}", col);
-                }
-                foreach (var col in volatileAcididy) {
-                    Console.WriteLine("vol {0}", col);
-                }
-                foreach (var col in quality) {
-                    Console.WriteLine("qual {0}", col);
-                }*/
             }
+            return lines;
         }
 
         static void Main(string[] args)
         {
-            List<string> file;
-            List<string> train_file;
+            try {
+                List<string> files = new List<string>();
+                List<string> trainFiles = new List<string>();
+                int kValue = 0;
+                string algo = null;
+
+                //  ADD aleatoire argument with the differents flags
+
+                files = LectCSV(args[1]);
+                trainFiles = LectCSV(args[3]);
+                kValue = Int32.Parse(args[5]);
+                algo = args[7];
+
+                //
+                //  ADD reste des appels de fonction
+                //
 
 
-            LectCSV(args[1]);
+            } catch (Exception e) {
+                Console.WriteLine(e.Message);
+            }
+            
         }
     }
 }
