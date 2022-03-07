@@ -24,15 +24,25 @@ namespace TP01_WineQuality
             return lines;
         }
 
-        static void Main(string[] args)
+        static async void Main(string[] args)
         {
             try {
                 List<string> files = new List<string>();
                 List<string> trainFiles = new List<string>();
+                Wine sample = new Wine();
                 int kValue = 0;
                 string algo = null;
-
-                //  ADD aleatoire argument with the differents flags
+                
+                for (int i = 0; args[i + 1]; i += 2) {
+                    switch(args[i]) {
+                        case "-e":
+                            files = LectCSV(args[1]);
+                            break;
+                        case "-p":
+                            break;
+                        
+                    }
+                }
 
                 files = LectCSV(args[1]);
                 trainFiles = LectCSV(args[3]);

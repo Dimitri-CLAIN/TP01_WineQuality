@@ -19,8 +19,15 @@ namespace TP01_WineQuality
         int Predict(string filename_sample_csv) {
             return 0;
         }
-        float EuclideanDistance(IWine first_sample, IWine second_sample) {
-            return 0;
+        async float EuclideanDistance(Wine first_sample, Wine second_sample) {
+            float res = 0;
+            int i = 0;
+            while(i <= 3) {
+                float value = Math.Pow((first_sample.features[i] - second_sample.features[i]), 2);
+                res += value;
+            }
+            res = Math.Sqrt(res);
+            return res;
         }
         int Vote(List<int> sorted_labels) {
             return 0;
