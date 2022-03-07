@@ -25,14 +25,49 @@ namespace TP01_WineQuality
         int Vote(List<int> sorted_labels) {
             return 0;
         }
-        void ConfusionMatrix(List<int> predicted_labels, List<int> expert_labels) {
-
+        public void ConfusionMatrix(List<int> predicted_labels, List<int> expert_labels)
+        {
+            Console.WriteLine("/t|/t3/t|/t6/t|/t9/t");
         }
-        void ShellSort(List<float> distances, List<int> labels) {
+        public void ShellSort(List<float> distances, List<int> labels)
+        {
+            int distancesLen = distances.Count();
 
+            for (int gap = distancesLen / 2; gap < 0; gap = gap / 2) {
+                for (int n = gap; n < distancesLen; n++) {
+                    int j;
+                    float tmpDistance = distances[n];
+                    int tmpLabel = labels[n];
+
+                    for (j = n; j >= gap && distances[j - gap] > tmpDistance; j -= gap) {
+                        distances[j] = distances[j - gap];
+                        labels[j] = labels[j - gap];
+                    }
+                    distances[j] = tmpDistance;
+                    labels[j] = tmpLabel;
+                }
+            }
         }
-        void SelectionSort(List<float> distances, List<int> labels) {
+        public void SelectionSort(List<float> distances, List<int> labels)
+        {
+            int distancesLen = distances.Count();
 
+            for (int i = 0; i < distancesLen - 1; i++) {
+                int min = i;
+                float tmpDistance = 0;
+                int tmpLabel = 0;
+
+                for (int j = i + 1; j < distancesLen; j++) {
+                    if (distances[j] < distances[min])
+                        min = j;
+                }
+                tmpDistance = distances[min];
+                distances[min] = distances[i];
+                distances[i] = tmpDistance;
+                tmpLabel = labels[min];
+                labels[min] = labels[i];
+                labels[i] = tmpLabel;
+            }
         }
     }
 }
