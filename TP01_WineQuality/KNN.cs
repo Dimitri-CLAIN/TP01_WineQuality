@@ -11,7 +11,7 @@ namespace TP01_WineQuality
         void Train(string filename_train_set_csv, int k = 1, int sort_algorithm = 1) {
 
         }
-        
+
         float Evaluate(string filename_test_set_csv) {
             return 0;
         }

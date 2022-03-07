@@ -13,7 +13,7 @@ namespace TP01_WineQuality
         {
             List<string> lines = new List<string>();
             string line = null;
-            
+
             using (StreamReader reader = new StreamReader(File.OpenRead(filename)))
             {
                 while (!reader.EndOfStream) {
@@ -57,7 +57,6 @@ namespace TP01_WineQuality
             } catch (Exception e) {
                 Console.WriteLine(e.Message);
             }
-            
         }
     }
 }
