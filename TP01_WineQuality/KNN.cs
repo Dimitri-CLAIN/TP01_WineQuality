@@ -43,8 +43,6 @@ namespace TP01_WineQuality
                 Wine tmp = LectWine(line);
                 this.TrainList.Add(tmp);
             }
-            
-
 
             // pas sur de ca
             if (sort_algorithm == 1) {
@@ -92,8 +90,27 @@ namespace TP01_WineQuality
             res = (float)Math.Sqrt(res);
             return res;
         }
-        int Vote(List<int> sorted_labels) {
-            return 0;
+        int Vote(List<int> sorted_labels)
+        {
+            (int Label, int Count) res = (0, 0);
+            var votes = new List<(int Label, int Count)>();
+
+            for (int n = 0; n <= sorted_labels.Count(); n++) { // change le sorted_labels.Count() par this.k
+                bool isNewLabel = true;
+
+                for (int i = 0; i < votes.Count(); i++) {
+                    if (sorted_labels[n] == votes[i].Label) {
+                        votes[i] = (votes[i].Label, votes[i].Count + 1);
+                        isNewLabel = false;
+                    }
+                    if (votes[i].Count > res.Count)
+                        res = votes[i];
+                }
+                if (isNewLabel)
+                    votes.Add((sorted_labels[n], 1));
+            }
+            Console.WriteLine($"Vote {res.Label} with {res.Count} itteration.");
+            return res.Label;
         }
 
         int isInArray(int target, int predicted, List<int> array)
