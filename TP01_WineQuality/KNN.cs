@@ -115,8 +115,27 @@ namespace TP01_WineQuality
             res = Math.Sqrt(res);
             return float.Parse(res.ToString());
         }
-        int Vote(List<int> sorted_labels) {
-            return 0;
+        int Vote(List<int> sorted_labels)
+        {
+            (int Label, int Count) res = (0, 0);
+            var votes = new List<(int Label, int Count)>();
+
+            for (int n = 0; n <= this.k; n++) {
+                bool isNewLabel = true;
+
+                for (int i = 0; i < votes.Count(); i++) {
+                    if (sorted_labels[n] == votes[i].Label) {
+                        votes[i] = (votes[i].Label, votes[i].Count + 1);
+                        isNewLabel = false;
+                    }
+                    if (votes[i].Count > res.Count)
+                        res = votes[i];
+                }
+                if (isNewLabel)
+                    votes.Add((sorted_labels[n], 1));
+            }
+            Console.WriteLine($"Vote {res.Label} with {res.Count} itteration.");
+            return res.Label;
         }
 
         int isInArray(int target, int predicted, List<int> array)
