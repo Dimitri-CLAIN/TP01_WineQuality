@@ -28,7 +28,6 @@ namespace TP01_WineQuality
             try
             {
                 _label = Int32.Parse(quality);
-
                 foreach (var feature in featuresStrings) {
                     _features[n] = float.Parse(feature);
                     n++;

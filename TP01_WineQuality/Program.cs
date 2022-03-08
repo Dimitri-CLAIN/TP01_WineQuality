@@ -16,7 +16,7 @@ namespace TP01_WineQuality
                 int kValue = 1;
                 bool tes = false;
                 bool samp = false;
-                String train = null;
+                String trainFilePath = null;
                 String file = null;
                 KNN knn = new KNN();
                 foreach (var arg in args) {
@@ -33,7 +33,7 @@ namespace TP01_WineQuality
                             break;
                         case "-t":
                             i +=1;
-                            train = args[i];
+                            trainFilePath = args[i];
                             break;
                         case "-k":
                             i +=1;
@@ -48,13 +48,13 @@ namespace TP01_WineQuality
                             break;
                     }
                 }
-                knn.Train(train, kValue, algo);
+                knn.Train(trainFilePath, kValue, algo);
                 if (tes == true) {
                     knn.Evaluate(file);
                 } else if (samp == true) {
                     knn.Predict(file);
                 } else {
-                    throw new Exception("Argument error");
+                    throw new Exception("Arguments error");
                 }
 
             } catch (Exception e) {
