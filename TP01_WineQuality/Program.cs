@@ -8,6 +8,15 @@ namespace TP01_WineQuality
 {
     internal class Program
     {
+
+        static void printHelp() {
+            Console.WriteLine("__ Système de mesure de qualité du vin __");
+            Console.WriteLine("_ Commande:");
+            Console.WriteLine("\t[-e | -p] 'testeFile.csv': Le fichier (nos) teste(s)");
+            Console.WriteLine("\t-t 'trainFile.csv': Le fichier d'entrainement");
+            Console.WriteLine("\t-k {10}: Les k premiere valeurs");
+            Console.WriteLine("\t-s {1} {2}: L'algorithme de trie {1} Shell et {2} Selection sort");
+        }
         static void Main(string[] args)
         {
             try {
@@ -19,6 +28,7 @@ namespace TP01_WineQuality
                 String trainFilePath = null;
                 String file = null;
                 KNN knn = new KNN();
+
                 foreach (var arg in args) {
                     switch(arg) {
                         case "-e":
@@ -43,6 +53,9 @@ namespace TP01_WineQuality
                             i +=1;
                             algo = Int32.Parse(args[i]);
                             break;
+                        case "-h":
+                            printHelp();
+                            throw new Exception("");
                         default:
                             i +=1;
                             break;
@@ -54,6 +67,7 @@ namespace TP01_WineQuality
                 } else if (samp == true) {
                     knn.Predict(file);
                 } else {
+                    printHelp();
                     throw new Exception("Arguments error");
                 }
 
