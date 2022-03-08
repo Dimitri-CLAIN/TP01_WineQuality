@@ -18,19 +18,18 @@ namespace TP01_WineQuality
                 bool tes = false;
                 bool samp = false;
                 String train = null;
-                String test = null;
-                String sample = null;
+                String file = null;
                 KNN knn = new KNN();
                 foreach (var arg in args) {
                     switch(arg) {
                         case "-e":
                             i += 1;
-                            test = args[i];
+                            file = args[i];
                             tes = true;
                             break;
                         case "-p":
                             i += 1;
-                            sample = args[i];
+                            file = args[i];
                             samp = true;
                             break;
                         case "-t":
@@ -52,13 +51,12 @@ namespace TP01_WineQuality
                 }
                 knn.Train(train, kValue, algo);
                 if (tes == true) {
-                    res = knn.Evaluate(test).ToString();
+                    res = knn.Evaluate(file).ToString();
                 } else if (samp == true) {
-                    res = knn.Predict(sample).ToString();
+                    res = knn.Predict(file).ToString();
                 } else {
                     throw new Exception("Argument error");
                 }
-                Console.WriteLine(res);
                 //Print
 
             } catch (Exception e) {
