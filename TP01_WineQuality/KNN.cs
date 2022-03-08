@@ -171,14 +171,15 @@ namespace TP01_WineQuality
                     nn++;
             }
             Console.WriteLine("\t\t|\t3\t|\t6\t|\t9\t");
-            Console.WriteLine($"{3}\t |\t {tt}\t |\t {ts}\t |\t {tn}\t");
-            Console.WriteLine($"{6}\t |\t {st}\t |\t {ss}\t |\t {sn}\t");
-            Console.WriteLine($"{9}\t |\t {nt}\t |\t {ns}\t |\t {nn}\t");
+            Console.WriteLine($"{3}\t |\t {tt}\t |\t {st}\t |\t {nt}\t");
+            Console.WriteLine($"{6}\t |\t {ts}\t |\t {ss}\t |\t {ns}\t");
+            Console.WriteLine($"{9}\t |\t {tn}\t |\t {sn}\t |\t {nn}\t");
         }
         public float Evaluate(string filename_test_set_csv) {
             float res = 0;
             List<Wine> testLists = ImportAllSamples(filename_test_set_csv);
             List<float> distances = new List<float>();
+            List<int> expertlabels = new List<int>();
             List<int> labels = new List<int>();
             List<int> knn = new List<int>();
             foreach(Wine sample in testLists) {
@@ -196,6 +197,7 @@ namespace TP01_WineQuality
                     throw new Exception("error valie of sort algorithm");
                 }
                 knn.Add(Vote(labels));
+                expertlabels.Add(sample.Label);
                 if (Vote(labels) == sample.Label) {
                     res += 1;
                 }
@@ -205,7 +207,7 @@ namespace TP01_WineQuality
             //     Console.WriteLine();
             // }
             res = (res / knn.Count()) * 100;
-            ConfusionMatrix(knn, labels);
+            ConfusionMatrix(knn, expertlabels);
             Console.WriteLine();
             Console.WriteLine("Classification Accuracy -> {0} %", res);
             return res;
