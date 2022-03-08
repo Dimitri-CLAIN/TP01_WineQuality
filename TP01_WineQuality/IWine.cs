@@ -7,8 +7,8 @@ namespace TP01_WineQuality
 {
     internal interface IWine
     {
-        float[] Features { set; get; }
-        int Label { set; get; }
+        float[] Features { get; }
+        int Label { get; }
         void PrintInfo();
     }
 }

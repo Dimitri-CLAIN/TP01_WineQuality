@@ -11,7 +11,6 @@ namespace TP01_WineQuality
         static void Main(string[] args)
         {
             try {
-                string res = null;
                 int i = 0;
                 int algo = 1;
                 int kValue = 1;
@@ -51,13 +50,12 @@ namespace TP01_WineQuality
                 }
                 knn.Train(train, kValue, algo);
                 if (tes == true) {
-                    res = knn.Evaluate(file).ToString();
+                    knn.Evaluate(file);
                 } else if (samp == true) {
-                    res = knn.Predict(file).ToString();
+                    knn.Predict(file);
                 } else {
                     throw new Exception("Argument error");
                 }
-                //Print
 
             } catch (Exception e) {
                 Console.WriteLine(e.Message);

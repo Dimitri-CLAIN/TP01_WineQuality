@@ -112,7 +112,7 @@ namespace TP01_WineQuality
                 res += value;
             }
             res = Math.Sqrt(res);
-            return float.Parse(res.ToString());
+            return (float)res;
         }
         public int Predict(string filename_sample_csv) {
             int res = 0;
@@ -171,6 +171,9 @@ namespace TP01_WineQuality
                     SelectionSort(distances, expert_labels);
                 } else {
                     throw new Exception("error valie of sort algorithm");
+                }
+                foreach(var dis in distances) {
+                    Console.WriteLine(dis);
                 }
                 knn.Add(Vote(expert_labels));
             }

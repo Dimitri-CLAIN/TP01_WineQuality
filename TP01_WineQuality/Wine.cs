@@ -11,14 +11,12 @@ namespace TP01_WineQuality
         private float[] _features;
         public float[] Features
         {
-            set { _features = value; }
             get { return _features; }
         }
 
         private int _label;
         public int Label
         {
-            set { _label = value; }
             get { return _label; }
         }
 
